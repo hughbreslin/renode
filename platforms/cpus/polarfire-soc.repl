@@ -91,6 +91,30 @@ mmc: SD.MPFS_SDController @ sysbus 0x20008000
     IRQ -> plic@88
     WakeupIRQ -> plic@89
 
+HB_0: Miscellaneous.DDR_CSR_APB_20082000 @ sysbus 0x20082000
+HB_1: Miscellaneous.DDR_CSR_APB_20083000 @ sysbus 0x20083000
+HB_2: Miscellaneous.DDR_CSR_APB_20084000 @ sysbus 0x20084000
+HB_3: Miscellaneous.DDR_CSR_APB_20085000 @ sysbus 0x20085000
+HB_4: Miscellaneous.DDR_CSR_APB_20086000 @ sysbus 0x20086000
+HB_5: Miscellaneous.DDR_CSR_APB_20087000 @ sysbus 0x20087000
+HB_6: Miscellaneous.DDR_CSR_APB_20088000 @ sysbus 0x20088000
+HB_7: Miscellaneous.DDR_CSR_APB_20090000 @ sysbus 0x20090000
+HB_8: Miscellaneous.DDR_CSR_APB_20092000 @ sysbus 0x20092000
+HB_9: Miscellaneous.DDR_CSR_APB_20093000 @ sysbus 0x20093000
+HB_10: Miscellaneous.DDR_CSR_APB_200BC000 @ sysbus 0x200BC000
+HB_11: Miscellaneous.DDR_CSR_APB_20002000 @ sysbus 0x20002000
+HB_12: Miscellaneous.DDR_CSR_APB_20007000 @ sysbus 0x20007000
+HB_13: Miscellaneous.DDR_CSR_APB_3E010000 @ sysbus 0x3E010000
+HB_14: Miscellaneous.DDR_CSR_APB_3E020000 @ sysbus 0x3E020000
+HB_15: Miscellaneous.DDR_CSR_APB_3E040000 @ sysbus 0x3E040000
+HB_16: Miscellaneous.DDR_CSR_APB_20005000 @ sysbus 0x20005000
+HB_17: Miscellaneous.DDR_CSR_APB_2010000 @ sysbus 0x2010000
+HB_18: Miscellaneous.DDR_CSR_APB_1700000 @ sysbus 0x1700000
+HB_19: Miscellaneous.DDR_CSR_APB_1701000 @ sysbus 0x1701000
+HB_20: Miscellaneous.DDR_CSR_APB_1702000 @ sysbus 0x1702000
+HB_21: Miscellaneous.DDR_CSR_APB_1703000 @ sysbus 0x1703000
+HB_22: Miscellaneous.DDR_CSR_APB_1704000 @ sysbus 0x1704000
+
 spi0: SPI.MPFS_SPI @ sysbus 0x20108000
     IRQ -> plic@54
 
@@ -192,6 +216,9 @@ usb: USB.MPFS_USB @ sysbus 0x20201000
 l2Lim: Memory.MappedMemory @ sysbus 0x08000000
     size: 0x02000000
 
+l2Scratchpad: Memory.MappedMemory @ sysbus 0x0a000000
+    size: 0x02000000
+
 e51DTim: Memory.MappedMemory @ sysbus 0x01000000
     size: 0x2000
 
@@ -210,15 +237,19 @@ u54Hart3ITim: Memory.MappedMemory @ sysbus 0x01818000
 u54Hart4ITim: Memory.MappedMemory @ sysbus 0x01820000
     size: 0x7000
 
-ddr: Memory.MappedMemory @ {
+ddr_lo: Memory.MappedMemory @ {
         sysbus 0x80000000;
         sysbus <0xC0000000, +0x10000000>;
-        sysbus <0xD0000000, +0x10000000>;
+        sysbus <0xD0000000, +0x10000000>
+    }
+    size: 0x40000000
+    
+ddr_hi: Memory.MappedMemory @ {
         sysbus 0x1000000000;
         sysbus 0x1400000000;
         sysbus 0x1800000000
     }
-    size: 0x40000000
+    size: 0x100000000
 
 pcie0: PCI.MPFS_PCIe @ sysbus 0x53004000
 
@@ -260,9 +291,9 @@ sysregScbBootRom: Memory.MappedMemory @ sysbus 0x20003000
     size: 0x1000
 
 DDR_CTRLR: Miscellaneous.MPFS_DDRMock @ sysbus 0x3e001000
-DDR_PHY: Miscellaneous.MPFS_DDRMock @ sysbus 0x20007000
-SCB_DDR_PLL: Miscellaneous.MPFS_DDRMock @ sysbus 0x3e010000
-DDRCFG: Miscellaneous.MPFS_DDRMock @ sysbus 0x20080000
+//DDR_PHY: Miscellaneous.MPFS_DDRMock @ sysbus 0x20007000
+//SCB_DDR_PLL: Miscellaneous.MPFS_DDRMock @ sysbus 0x3e010000
+//DDRCFG: Miscellaneous.MPFS_DDRMock @ sysbus 0x20080000
 
 sysbus:
     init:
